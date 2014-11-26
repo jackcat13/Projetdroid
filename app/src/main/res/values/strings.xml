@@ -11,5 +11,8 @@
     <string name="title_activity_gerer_pages">GererPagesActivity</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_gerer_icones">GererIconesActivity</string>
+    <string name="title_activity_ajouter_page">AjouterPageActivity</string>
+    <string name="title_activity_modifier_page">ModifierPageActivity</string>
+    <string name="title_activity_supprimer_page">SupprimerPageActivity</string>
 
 </resources>

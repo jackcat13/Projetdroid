@@ -40,6 +40,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="src.projetandroid.AdminActivity" />
         </activity>
+        <activity
+            android:name="src.projetandroid.AjouterPageActivity"
+            android:label="@string/title_activity_ajouter_page" >
+        </activity>
+        <activity
+            android:name="src.projetandroid.ModifierPageActivity"
+            android:label="@string/title_activity_modifier_page" >
+        </activity>
+        <activity
+            android:name="src.projetandroid.SupprimerPageActivity"
+            android:label="@string/title_activity_supprimer_page" >
+        </activity>
     </application>
 
 </manifest>
