@@ -11,8 +11,6 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class DBHelper extends SQLiteOpenHelper {
 
-
-
     // Commandes sql pour la création de la base de données
     private static final String DATABASE_CREATE_PAGE = "create table PAGE (" +
             "IDPAGE INTEGER PRIMARY KEY AUTOINCREMENT, " +
