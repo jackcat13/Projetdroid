@@ -24,7 +24,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "FOREIGN KEY (IDPAGE) REFERENCES PAGE(IDPAGE)" +
             ");";
 
-    private static final String DATABASE_NAME = "contents.db";
+    private static final String DATABASE_NAME = "app2.db";
 
     public DBHelper(Context context){
 
@@ -35,6 +35,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         db.execSQL(DATABASE_CREATE_PAGE);
         db.execSQL(DATABASE_CREATE_BOUTON);
+        creationBasicPage(db);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -80,5 +81,56 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor result = db.rawQuery("SELECT * FROM BOUTON;", null);
         return result;
+    }
+
+    public void creationBasicPage(SQLiteDatabase db)
+    {
+        db.execSQL("INSERT INTO PAGE(NOMPAGE) VALUES('Urgent');");
+        db.execSQL("INSERT INTO BOUTON(IDPAGE, NOMBOUTON) VALUES(1, 'Urgent');");
+
+        db.execSQL("INSERT INTO PAGE(NOMPAGE) VALUES('?');");
+        db.execSQL("INSERT INTO BOUTON(IDPAGE, NOMBOUTON) VALUES(1, '?');");
+
+        db.execSQL("INSERT INTO PAGE(NOMPAGE) VALUES('Les personnes');");
+        db.execSQL("INSERT INTO BOUTON(IDPAGE, NOMBOUTON) VALUES(1, 'Les personnes');");
+
+        db.execSQL("INSERT INTO PAGE(NOMPAGE) VALUES('Animaux');");
+        db.execSQL("INSERT INTO BOUTON(IDPAGE, NOMBOUTON) VALUES(1, 'Animaux');");
+
+        db.execSQL("INSERT INTO PAGE(NOMPAGE) VALUES('Faire');");
+        db.execSQL("INSERT INTO BOUTON(IDPAGE, NOMBOUTON) VALUES(1, 'Faire');");
+
+        db.execSQL("INSERT INTO PAGE(NOMPAGE) VALUES('Endroits | Lieux');");
+        db.execSQL("INSERT INTO BOUTON(IDPAGE, NOMBOUTON) VALUES(1, 'Endroits | Lieux');");
+
+        db.execSQL("INSERT INTO PAGE(NOMPAGE) VALUES('Adjectifs');");
+        db.execSQL("INSERT INTO BOUTON(IDPAGE, NOMBOUTON) VALUES(1, 'Adjectifs');");
+
+        db.execSQL("INSERT INTO PAGE(NOMPAGE) VALUES('Corps');");
+        db.execSQL("INSERT INTO BOUTON(IDPAGE, NOMBOUTON) VALUES(1, 'Corps');");
+
+        db.execSQL("INSERT INTO PAGE(NOMPAGE) VALUES('Émotions | Sentiments');");
+        db.execSQL("INSERT INTO BOUTON(IDPAGE, NOMBOUTON) VALUES(1, 'Émotions | Sentiments');");
+
+        db.execSQL("INSERT INTO PAGE(NOMPAGE) VALUES('Instruments | Objets divers');");
+        db.execSQL("INSERT INTO BOUTON(IDPAGE, NOMBOUTON) VALUES(1, 'Instruments | Objets divers');");
+
+        db.execSQL("INSERT INTO PAGE(NOMPAGE) VALUES('Le temps');");
+        db.execSQL("INSERT INTO BOUTON(IDPAGE, NOMBOUTON) VALUES(1, 'Le temps');");
+
+        db.execSQL("INSERT INTO PAGE(NOMPAGE) VALUES('Aliments');");
+        db.execSQL("INSERT INTO BOUTON(IDPAGE, NOMBOUTON) VALUES(1, 'Aliments');");
+
+        db.execSQL("INSERT INTO PAGE(NOMPAGE) VALUES('Vêtements');");
+        db.execSQL("INSERT INTO BOUTON(IDPAGE, NOMBOUTON) VALUES(1, 'Vêtements');");
+
+        db.execSQL("INSERT INTO PAGE(NOMPAGE) VALUES('Moyens de déplacements');");
+        db.execSQL("INSERT INTO BOUTON(IDPAGE, NOMBOUTON) VALUES(1, 'Moyen de déplacements');");
+
+        db.execSQL("INSERT INTO PAGE(NOMPAGE) VALUES('Classe');");
+        db.execSQL("INSERT INTO BOUTON(IDPAGE, NOMBOUTON) VALUES(1, 'Classe');");
+
+        db.execSQL("INSERT INTO PAGE(NOMPAGE) VALUES('Jeux | Loisirs');");
+        db.execSQL("INSERT INTO BOUTON(IDPAGE, NOMBOUTON) VALUES(1, 'Jeux | Loisirs');");
     }
 }
