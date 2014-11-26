@@ -40,6 +40,42 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="src.projetandroid.AdminActivity" />
         </activity>
+        <activity
+            android:name="src.projetandroid.AjouterPageActivity"
+            android:label="@string/title_activity_ajouter_page" >
+        </activity>
+        <activity
+            android:name="src.projetandroid.ModifierPageActivity"
+            android:label="@string/title_activity_modifier_page" >
+        </activity>
+        <activity
+            android:name="src.projetandroid.SupprimerPageActivity"
+            android:label="@string/title_activity_supprimer_page" >
+        </activity>
+        <activity
+            android:name="src.projetandroid.AjouterIconeActivity"
+            android:label="@string/title_activity_ajouter_icone"
+            android:parentActivityName="src.projetandroid.GererIconesActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="src.projetandroid.GererIconesActivity" />
+        </activity>
+        <activity
+            android:name="src.projetandroid.ModifierIconeActivity"
+            android:label="@string/title_activity_modifier_icone"
+            android:parentActivityName="src.projetandroid.GererIconesActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="src.projetandroid.GererIconesActivity" />
+        </activity>
+        <activity
+            android:name="src.projetandroid.SupprimerIconeActivity"
+            android:label="@string/title_activity_supprimer_icone"
+            android:parentActivityName="src.projetandroid.GererIconesActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="src.projetandroid.GererIconesActivity" />
+        </activity>
     </application>
 
 </manifest>
