@@ -8,5 +8,8 @@
     <string name="administration_title">Panneau d\'administration</string>
     <string name="gerer_icones">Gérer icônes</string>
     <string name="gerer_pages">Gérer pages</string>
+    <string name="title_activity_gerer_pages">GererPagesActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_gerer_icones">GererIconesActivity</string>
 
 </resources>

@@ -24,6 +24,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="src.projetandroid.ContentActivity" />
         </activity>
+        <activity
+            android:name="src.projetandroid.GererPagesActivity"
+            android:label="@string/title_activity_gerer_pages"
+            android:parentActivityName="src.projetandroid.AdminActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="src.projetandroid.AdminActivity" />
+        </activity>
+        <activity
+            android:name="src.projetandroid.GererIconesActivity"
+            android:label="@string/title_activity_gerer_icones"
+            android:parentActivityName="src.projetandroid.AdminActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="src.projetandroid.AdminActivity" />
+        </activity>
     </application>
 
 </manifest>
