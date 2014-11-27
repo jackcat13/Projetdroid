@@ -29,20 +29,20 @@ public class GererPagesActivity extends Activity {
         public void onClick(View v) {
                 Intent intentGererPages = new Intent(GererPagesActivity.this, AjouterPageActivity.class);
                 startActivity(intentGererPages);
-            }
-        };
+        }
+    };
 
-        private View.OnClickListener modifierPageListener = new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intentGererPages = new Intent(GererPagesActivity.this, ModifierPageActivity.class);
-                startActivity(intentGererPages);
-            }
-        };
+    private View.OnClickListener modifierPageListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            Intent intentGererPages = new Intent(GererPagesActivity.this, ModifierPageActivity.class);
+            startActivity(intentGererPages);
+        }
+    };
 
-        private View.OnClickListener supprimerPageListener = new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intentGererPages = new Intent(GererPagesActivity.this, SupprimerPageActivity.class);
-                startActivity(intentGererPages);
+    private View.OnClickListener supprimerPageListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            Intent intentGererPages = new Intent(GererPagesActivity.this, SupprimerPageActivity.class);
+            startActivity(intentGererPages);
             }
     };
 

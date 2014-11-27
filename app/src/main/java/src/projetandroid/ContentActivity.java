@@ -24,7 +24,7 @@ public class ContentActivity extends Activity {
         DBHelper db = new DBHelper(this);
 
         int i = 0;
-        Cursor buttons = db.selectBoutonQuery();
+        Cursor buttons = db.selectBoutonQuery(1);
         buttons.moveToFirst();
         while(!buttons.isAfterLast()) {
 
@@ -71,9 +71,11 @@ public class ContentActivity extends Activity {
         if (id == R.id.action_administration) {
             Intent intentAdmin = new Intent(this, AdminActivity.class);
             startActivity(intentAdmin);
+            finish();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
 }

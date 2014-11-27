@@ -24,7 +24,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "FOREIGN KEY (IDPAGE) REFERENCES PAGE(IDPAGE)" +
             ");";
 
-    private static final String DATABASE_NAME = "app2.db";
+    private static final String DATABASE_NAME = "app3.db";
 
     public DBHelper(Context context){
 
@@ -76,15 +76,17 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM BOUTON WHERE IDBOUTON="+idBouton+";");
     }
 
-    public Cursor selectBoutonQuery(){
+    public Cursor selectBoutonQuery(int idPage){
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor result = db.rawQuery("SELECT * FROM BOUTON;", null);
+        Cursor result = db.rawQuery("SELECT * FROM BOUTON WHERE IDPAGE="+idPage+";", null);
         return result;
     }
 
     public void creationBasicPage(SQLiteDatabase db)
     {
+        db.execSQL("INSERT INTO PAGE(NOMPAGE) VALUES('Sommaire');");
+
         db.execSQL("INSERT INTO PAGE(NOMPAGE) VALUES('Urgent');");
         db.execSQL("INSERT INTO BOUTON(IDPAGE, NOMBOUTON) VALUES(1, 'Urgent');");
 

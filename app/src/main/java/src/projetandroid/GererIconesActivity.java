@@ -14,7 +14,7 @@ public class GererIconesActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gerer_pages);
+        setContentView(R.layout.activity_gerer_icones);
 
         Button ajouterIconeButton = (Button) findViewById(R.id.ajouterIconeButton);
         Button modifierIconeButton = (Button) findViewById(R.id.modifierIconeButton);
@@ -27,22 +27,22 @@ public class GererIconesActivity extends Activity {
 
     private View.OnClickListener ajouterIconeListener = new View.OnClickListener() {
         public void onClick(View v) {
-            Intent intentGererPages = new Intent(GererIconesActivity.this, AjouterIconeActivity.class);
-            startActivity(intentGererPages);
+            Intent intentAjouterIcone = new Intent(GererIconesActivity.this, AjouterIconeActivity.class);
+            startActivity(intentAjouterIcone);
         }
     };
 
     private View.OnClickListener modifierIconeListener = new View.OnClickListener() {
         public void onClick(View v) {
-            Intent intentGererPages = new Intent(GererIconesActivity.this, ModifierIconeActivity.class);
-            startActivity(intentGererPages);
+            Intent intentModifierIcone = new Intent(GererIconesActivity.this, ModifierIconeActivity.class);
+            startActivity(intentModifierIcone);
         }
     };
 
     private View.OnClickListener supprimerIconeListener = new View.OnClickListener() {
         public void onClick(View v) {
-            Intent intentGererPages = new Intent(GererIconesActivity.this, SupprimerIconeActivity.class);
-            startActivity(intentGererPages);
+            Intent intentSupprimerIcone = new Intent(GererIconesActivity.this, SupprimerIconeActivity.class);
+            startActivity(intentSupprimerIcone);
         }
     };
 

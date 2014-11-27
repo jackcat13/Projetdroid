@@ -59,4 +59,10 @@ public class AdminActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void onBackPressed(){
+        Intent intentContent = new Intent(this, ContentActivity.class);
+        startActivity(intentContent);
+        finish();
+    }
 }
