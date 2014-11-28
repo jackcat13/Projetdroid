@@ -9,14 +9,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-
 public class AdminActivity extends Activity {
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
-
         Button ajouterIconeButton = (Button) findViewById(R.id.ajouterIconeButton);
         Button viewIconesButton = (Button) findViewById(R.id.viewIconesButton);
 
