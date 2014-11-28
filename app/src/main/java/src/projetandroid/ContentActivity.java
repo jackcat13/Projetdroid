@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.GridLayout;
 
@@ -32,9 +34,11 @@ public class ContentActivity extends Activity {
             System.out.println(buttons.getString(buttons.getColumnIndex("NOMBOUTON")));*/
 
             Button b = new Button(this);
+            String nomBouton = buttons.getString(buttons.getColumnIndex("NOMBOUTON"));
             b.setId( Integer.valueOf(buttons.getString(buttons.getColumnIndex("IDBOUTON"))) );
-            b.setText( buttons.getString(buttons.getColumnIndex("NOMBOUTON")) );
+            b.setText( nomBouton );
             b.setPadding(20,20,20,20);
+            b.setOnClickListener(pageAccess);
 
             gl.addView(b);
 
@@ -78,4 +82,17 @@ public class ContentActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    private View.OnClickListener pageAccess = new View.OnClickListener()
+    {
+        public void onClick(View v)
+        {
+            Intent newPage = new Intent(ContentActivity.this, SectionPageActivity.class);
+            Bundle b = new Bundle();
+
+            b.putInt("idPage", Integer.valueOf((Button)v.getId()));
+            b.putString("nomPage", ""+((Button)v).getText().toString());
+            newPage.putExtras(b);
+            startActivity(newPage);
+        }
+    };
 }

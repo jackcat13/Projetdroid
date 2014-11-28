@@ -17,6 +17,7 @@
     <string name="title_activity_ajouter_page">AjouterPageActivity</string>
     <string name="title_activity_modifier_page">ModifierPageActivity</string>
     <string name="title_activity_supprimer_page">SupprimerPageActivity</string>
+    <string name="title_activity_section_page">SectionPageActivity</string>
     <string name="title_activity_view_icones">ViewIconesActivity</string>
 
 </resources>

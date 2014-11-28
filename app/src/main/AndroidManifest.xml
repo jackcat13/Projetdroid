@@ -45,6 +45,10 @@
             android:name="src.projetandroid.ViewIconesActivity"
             android:label="@string/title_activity_view_icones" >
         </activity>
+        <activity
+            android:name="src.projetandroid.SectionPageActivity"
+            android:label="@string/title_activity_section_page" >
+        </activity>
     </application>
 
 </manifest>
