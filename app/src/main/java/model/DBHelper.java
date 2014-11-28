@@ -24,7 +24,7 @@ public class DBHelper extends SQLiteOpenHelper {
             "FOREIGN KEY (IDPAGE) REFERENCES PAGE(IDPAGE)" +
             ");";
 
-    private static final String DATABASE_NAME = "app3.db";
+    private static final String DATABASE_NAME = "app1.db";
 
     public DBHelper(Context context){
 

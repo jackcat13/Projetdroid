@@ -2,10 +2,12 @@ package src.projetandroid;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
 
@@ -39,6 +41,7 @@ public class SectionPageActivity extends Activity {
             b.setId( Integer.valueOf(buttons.getString(buttons.getColumnIndex("IDBOUTON"))) );
             b.setText( nomBouton );
             b.setPadding(20,20,20,20);
+            b.setOnClickListener(saveWord);
 
             gl.addView(b);
 
@@ -69,4 +72,19 @@ public class SectionPageActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private View.OnClickListener saveWord = new View.OnClickListener()
+    {
+        public void onClick(View v)
+        {
+          /*  Intent intentNewPage = new Intent(ContentActivity.this, SectionPageActivity.class);
+            Bundle b = new Bundle();
+            Button bu = (Button)v;
+
+            b.putInt("idPage", bu.getId());
+            b.putString("nomPage", bu.getText().toString());
+            intentNewPage.putExtras(b);
+            startActivity(intentNewPage);*/
+        }
+    };
 }
