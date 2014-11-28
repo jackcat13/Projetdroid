@@ -76,6 +76,13 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM BOUTON WHERE IDBOUTON="+idBouton+";");
     }
 
+    public Cursor selectAllBoutonQuery() {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor result = db.rawQuery("SELECT * FROM BOUTON;", null);
+        return result;
+    }
+
     public Cursor selectBoutonQuery(int idPage){
 
         SQLiteDatabase db = this.getReadableDatabase();

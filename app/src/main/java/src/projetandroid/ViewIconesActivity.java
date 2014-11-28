@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import model.DBHelper;
 
 
-public class ViewIconesActivity extends ListActivity {
+public class ViewIconesActivity extends Activity {
     private DBHelper db;
     private ListView list;
 
@@ -28,17 +28,17 @@ public class ViewIconesActivity extends ListActivity {
 
         db = new DBHelper(this);
         list = (ListView) findViewById(R.id.iconesListView);
-        ArrayList<String> listPages = new ArrayList<String>();
+        ArrayList<String> listIcones = new ArrayList<String>();
 
-        Cursor pages = db.selectPageQuery();
+        Cursor pages = db.selectAllBoutonQuery();
         pages.moveToFirst();
         while(!pages.isAfterLast()) {
-            listPages.add( pages.getString(pages.getColumnIndex("NOMPAGE")) );
+            listIcones.add( pages.getString(pages.getColumnIndex("NOMBOUTON")) );
             pages.moveToNext();
         }
         pages.close();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,listPages);
-        setListAdapter(adapter);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,listIcones);
+        list.setAdapter(adapter);
 
     }
 
