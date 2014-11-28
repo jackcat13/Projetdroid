@@ -26,16 +26,17 @@ public class ContentActivity extends Activity {
         DBHelper db = new DBHelper(this);
 
         int i = 0;
-        Cursor buttons = db.selectBoutonQuery(1);
+        Cursor buttons = db.selectPageQuery();
         buttons.moveToFirst();
+        buttons.moveToNext();
         while(!buttons.isAfterLast()) {
 
             /*System.out.println(buttons.getString(buttons.getColumnIndex("IDBOUTON")));
             System.out.println(buttons.getString(buttons.getColumnIndex("NOMBOUTON")));*/
 
             Button b = new Button(this);
-            String nomBouton = buttons.getString(buttons.getColumnIndex("NOMBOUTON"));
-            b.setId( Integer.valueOf(buttons.getString(buttons.getColumnIndex("IDBOUTON"))) );
+            String nomBouton = buttons.getString(buttons.getColumnIndex("NOMPAGE"));
+            b.setId( Integer.valueOf(buttons.getString(buttons.getColumnIndex("IDPAGE"))) );
             b.setText( nomBouton );
             b.setPadding(20,20,20,20);
             b.setOnClickListener(pageAccess);

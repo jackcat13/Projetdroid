@@ -42,6 +42,7 @@ public class AjouterIconeActivity extends Activity {
 
         Cursor pages = db.selectPageQuery();
         pages.moveToFirst();
+        pages.moveToNext();
         while(!pages.isAfterLast()) {
 
             ArrayList<String> page = new ArrayList<String>();

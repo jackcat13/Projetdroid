@@ -20,11 +20,12 @@ public class SectionPageActivity extends Activity {
 
         Bundle bun = getIntent().getExtras();
         int idPage = bun.getInt("idPage");
+
         String nomPage = bun.getString("nomPage");
 
         setTitle(nomPage);
 
-        GridLayout gl = (GridLayout) findViewById(R.id.gridLayoutContent);
+        GridLayout gl = (GridLayout) findViewById(R.id.gridLayoutSectionPage);
 
         DBHelper db = new DBHelper(this);
 
@@ -34,7 +35,7 @@ public class SectionPageActivity extends Activity {
 
             Button b = new Button(this);
             String nomBouton = buttons.getString(buttons.getColumnIndex("NOMBOUTON"));
-            b.setId( Integer.valueOf(buttons.getString(buttons.getColumnIndex("IDBOUTON"))) );
+            b.setId( Integer.valueOf(buttons.getString(buttons.getColumnIndex("IDPAGE"))) );
             b.setText( nomBouton );
             b.setPadding(20,20,20,20);
             b.setOnClickListener(saveWord);
