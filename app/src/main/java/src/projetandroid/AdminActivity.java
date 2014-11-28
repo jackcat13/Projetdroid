@@ -17,24 +17,24 @@ public class AdminActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
 
-        Button gererPagesButton = (Button) findViewById(R.id.gererPagesButton);
-        Button gererIconesButton = (Button) findViewById(R.id.gererIconesButton);
+        Button ajouterIconeButton = (Button) findViewById(R.id.ajouterIconeButton);
+        Button viewIconesButton = (Button) findViewById(R.id.viewIconesButton);
 
-        gererPagesButton.setOnClickListener(gererPagesListener);
-        gererIconesButton.setOnClickListener(gererIconesListener);
+        ajouterIconeButton.setOnClickListener(ajouterIconeListener);
+        viewIconesButton.setOnClickListener(viewIconesListener);
     }
 
-    private OnClickListener gererIconesListener = new OnClickListener() {
+    private OnClickListener ajouterIconeListener = new OnClickListener() {
         public void onClick(View v) {
-            Intent intentGererPages = new Intent(AdminActivity.this, GererIconesActivity.class);
-            startActivity(intentGererPages);
+            Intent intentAjouterIcone = new Intent(AdminActivity.this, AjouterIconeActivity.class);
+            startActivity(intentAjouterIcone);
         }
     };
 
-    private OnClickListener gererPagesListener = new OnClickListener() {
+    private OnClickListener viewIconesListener = new OnClickListener() {
         public void onClick(View v) {
-            Intent intentGererPages = new Intent(AdminActivity.this, GererPagesActivity.class);
-            startActivity(intentGererPages);
+            Intent intentViewIcones = new Intent(AdminActivity.this, ViewIconesActivity.class);
+            startActivity(intentViewIcones);
         }
     };
 

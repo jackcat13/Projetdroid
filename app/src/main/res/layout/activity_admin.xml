@@ -24,18 +24,18 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/gerer_icones"
-            android:id="@+id/gererIconesButton"
+            android:text="Ajouter icône"
+            android:id="@+id/ajouterIconeButton"
             android:layout_gravity="center_horizontal"
-            android:textSize="20dp" />
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/gerer_pages"
-            android:id="@+id/gererPagesButton"
-            android:layout_gravity="center_horizontal"
-            android:textSize="20dp" />
+            android:text="Voir Icônes"
+            android:id="@+id/viewIconesButton"
+            android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
 
