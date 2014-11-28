@@ -31,7 +31,6 @@ public class SectionPageActivity extends Activity {
 
         DBHelper db = new DBHelper(this);
 
-        int i = 0;
         Cursor buttons = db.selectBoutonQuery(idPage);
         buttons.moveToFirst();
         while(!buttons.isAfterLast()) {

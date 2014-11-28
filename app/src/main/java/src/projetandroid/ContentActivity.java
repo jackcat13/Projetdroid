@@ -25,7 +25,6 @@ public class ContentActivity extends Activity {
 
         DBHelper db = new DBHelper(this);
 
-        int i = 0;
         Cursor buttons = db.selectBoutonQuery(1);
         buttons.moveToFirst();
         while(!buttons.isAfterLast()) {
@@ -35,7 +34,7 @@ public class ContentActivity extends Activity {
 
             Button b = new Button(this);
             String nomBouton = buttons.getString(buttons.getColumnIndex("NOMBOUTON"));
-            b.setId( Integer.valueOf(buttons.getString(buttons.getColumnIndex("IDBOUTON"))) );
+            b.setId( Integer.valueOf(buttons.getString(buttons.getColumnIndex("IDBOUTON"))));
             b.setText( nomBouton );
             b.setPadding(20,20,20,20);
             b.setOnClickListener(pageAccess);
