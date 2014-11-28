@@ -86,13 +86,14 @@ public class ContentActivity extends Activity {
     {
         public void onClick(View v)
         {
-            Intent newPage = new Intent(ContentActivity.this, SectionPageActivity.class);
+            Intent intentNewPage = new Intent(ContentActivity.this, SectionPageActivity.class);
             Bundle b = new Bundle();
+            Button bu = (Button)v;
 
-            b.putInt("idPage", Integer.valueOf((Button)v.getId()));
-            b.putString("nomPage", ""+((Button)v).getText().toString());
-            newPage.putExtras(b);
-            startActivity(newPage);
+            b.putInt("idPage", bu.getId());
+            b.putString("nomPage", bu.getText().toString());
+            intentNewPage.putExtras(b);
+            startActivity(intentNewPage);
         }
     };
 }

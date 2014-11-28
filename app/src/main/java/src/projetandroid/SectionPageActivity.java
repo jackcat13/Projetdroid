@@ -1,9 +1,15 @@
 package src.projetandroid;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.GridLayout;
+
+import model.DBHelper;
 
 
 public class SectionPageActivity extends Activity {
@@ -13,11 +19,32 @@ public class SectionPageActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_section_page);
 
-        Bundle b = getIntent().getExtras();
-        int idPage = b.getInt("IdPage");
-        String nomPage = b.getString("nomPage");
+        Bundle bun = getIntent().getExtras();
+        int idPage = bun.getInt("idPage");
+        String nomPage = bun.getString("nomPage");
 
-        System.out.println("Nom page: " + nomPage + "\nId page: " + idPage);
+        setTitle(nomPage);
+
+        GridLayout gl = (GridLayout) findViewById(R.id.gridLayoutContent);
+
+        DBHelper db = new DBHelper(this);
+
+        int i = 0;
+        Cursor buttons = db.selectBoutonQuery(idPage);
+        buttons.moveToFirst();
+        while(!buttons.isAfterLast()) {
+
+            Button b = new Button(this);
+            String nomBouton = buttons.getString(buttons.getColumnIndex("NOMBOUTON"));
+            b.setId( Integer.valueOf(buttons.getString(buttons.getColumnIndex("IDBOUTON"))) );
+            b.setText( nomBouton );
+            b.setPadding(20,20,20,20);
+
+            gl.addView(b);
+
+            buttons.moveToNext();
+        }
+        buttons.close();
     }
 
 
