@@ -1,17 +1,42 @@
 package src.projetandroid;
 
 import android.app.Activity;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+
+import model.DBHelper;
 
 
 public class ModifierIconeActivity extends Activity {
+
+    private EditText modifNomIconeEditText;
+    private Spinner modifPageIconeSpinner;
+    private Button creerIconeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modifier_icone);
+
+        Bundle b = getIntent().getExtras();
+        int idPage = b.getInt("idIcone");
+
+        modifNomIconeEditText = (EditText) findViewById(R.id.modifNomIconeEditText);
+        creerIconeButton = (Button) findViewById(R.id.creerIconeButton);
+
+        DBHelper db = new DBHelper(this);
+
+        Cursor unBouton = db.selectUnBoutonQuery(idPage);
+        unBouton.moveToFirst();
+        modifNomIconeEditText.setHint( unBouton.getString(unBouton.getColumnIndex("NOMBOUTON")) );
+
+
+
     }
 
 

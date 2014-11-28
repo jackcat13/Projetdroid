@@ -83,6 +83,13 @@ public class DBHelper extends SQLiteOpenHelper {
         return result;
     }
 
+    public Cursor selectUnBoutonQuery(int idBouton){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor result = db.rawQuery("SELECT * FROM BOUTON WHERE IDBOUTON="+idBouton+";", null);
+        return result;
+    }
+
     public void creationBasicPage(SQLiteDatabase db)
     {
         db.execSQL("INSERT INTO PAGE(NOMPAGE) VALUES('Sommaire');");

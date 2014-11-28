@@ -1,8 +1,6 @@
 package src.projetandroid;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,7 +10,6 @@ import android.widget.Button;
 import android.widget.GridLayout;
 
 import model.DBHelper;
-
 
 public class SectionPageActivity extends Activity {
 
@@ -49,6 +46,19 @@ public class SectionPageActivity extends Activity {
         buttons.close();
     }
 
+    private View.OnClickListener saveWord = new View.OnClickListener()
+    {
+        public void onClick(View v)
+        {
+          /*  Intent intentNewPage = new Intent(ContentActivity.this, SectionPageActivity.class);
+            Bundle b = new Bundle();
+            Button bu = (Button)v;
+            b.putInt("idPage", bu.getId());
+            b.putString("nomPage", bu.getText().toString());
+            intentNewPage.putExtras(b);
+            startActivity(intentNewPage);*/
+        }
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -71,19 +81,4 @@ public class SectionPageActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    private View.OnClickListener saveWord = new View.OnClickListener()
-    {
-        public void onClick(View v)
-        {
-          /*  Intent intentNewPage = new Intent(ContentActivity.this, SectionPageActivity.class);
-            Bundle b = new Bundle();
-            Button bu = (Button)v;
-
-            b.putInt("idPage", bu.getId());
-            b.putString("nomPage", bu.getText().toString());
-            intentNewPage.putExtras(b);
-            startActivity(intentNewPage);*/
-        }
-    };
 }
