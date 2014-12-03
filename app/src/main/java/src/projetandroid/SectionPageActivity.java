@@ -60,7 +60,7 @@ public class SectionPageActivity extends Activity {
         {
             Button button = (Button) v;
 
-            ContentActivity.getPhrase().add((String) button.getText());
+            ContentActivity.getPhrase().add(button);
 
             finish();
         }
@@ -95,8 +95,8 @@ public class SectionPageActivity extends Activity {
         String str = "";
 
 
-        for(String e: ContentActivity.getPhrase())
-            str += e + " ";
+        for(Button e: ContentActivity.getPhrase())
+            str += e.getText() + " ";
 
         if (str != "")
             phraseView.setText(str);

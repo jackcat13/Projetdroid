@@ -19,13 +19,13 @@ import model.DBHelper;
 
 public class ContentActivity extends Activity {
 
-    private static ArrayList<String> phrase;
+    private static ArrayList<Button> phrase;
     TextView phraseView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setPhrase(new ArrayList<String>());
+        this.setPhrase(new ArrayList<Button>());
         setContentView(R.layout.activity_content);
 
         phraseView = (TextView) findViewById(R.id.phraseView);
@@ -99,8 +99,8 @@ public class ContentActivity extends Activity {
         String str = "";
 
 
-        for(String e: getPhrase())
-            str += e + " ";
+        for(Button e: getPhrase())
+            str += e.getText() + " ";
 
         if (str != "")
             phraseView.setText(str);
@@ -122,12 +122,12 @@ public class ContentActivity extends Activity {
         }
     };
 
-    public static ArrayList <String> getPhrase()
+    public static ArrayList <Button> getPhrase()
     {
         return ContentActivity.phrase;
     }
 
-    public static void setPhrase(ArrayList <String> l)
+    public static void setPhrase(ArrayList <Button> l)
     {
         ContentActivity.phrase = l;
     }
