@@ -1,6 +1,7 @@
 package src.projetandroid;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
@@ -51,13 +52,16 @@ public class SectionPageActivity extends Activity {
     {
         public void onClick(View v)
         {
-          /*  Intent intentNewPage = new Intent(ContentActivity.this, SectionPageActivity.class);
+            Intent intentNewPage = new Intent(SectionPageActivity.this, SectionPageActivity.class);
             Bundle b = new Bundle();
             Button bu = (Button)v;
             b.putInt("idPage", bu.getId());
             b.putString("nomPage", bu.getText().toString());
             intentNewPage.putExtras(b);
-            startActivity(intentNewPage);*/
+            startActivity(intentNewPage);
+
+
+            
         }
     };
 

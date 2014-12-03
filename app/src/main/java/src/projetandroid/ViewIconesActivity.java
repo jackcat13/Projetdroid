@@ -20,12 +20,14 @@ import model.DBHelper;
 public class ViewIconesActivity extends Activity {
     private DBHelper db;
     private ListView list;
+    private ArrayList<String> listId;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_icones);
 
+        listId =new ArrayList<String>();
         db = new DBHelper(this);
         list = (ListView) findViewById(R.id.iconesListView);
         ArrayList<String> listIcones = new ArrayList<String>();
@@ -33,7 +35,8 @@ public class ViewIconesActivity extends Activity {
         Cursor pages = db.selectAllBoutonQuery();
         pages.moveToFirst();
         while(!pages.isAfterLast()) {
-            listIcones.add( pages.getString(pages.getColumnIndex("NOMBOUTON")) );
+            listIcones.add(pages.getString(pages.getColumnIndex("NOMBOUTON")) );
+            listId.add(pages.getString(pages.getColumnIndex("IDBOUTON")));
             pages.moveToNext();
         }
         pages.close();
@@ -55,7 +58,7 @@ public class ViewIconesActivity extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        int id = Integer.valueOf(listId.get(item.getItemId()));
         Bundle b=new Bundle();
 
         b.putInt("idIcone",id);
