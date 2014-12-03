@@ -70,6 +70,12 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO BOUTON(IDPAGE, NOMBOUTON) VALUES("+idPage+", "+ DatabaseUtils.sqlEscapeString(nomBouton)+");");
     }
 
+    public void updateBoutonQuery( int idBouton, String nomBouton ){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE INTO BOUTON SET NOMBOUTON = "+nomBouton+" WHERE IDBOUTON = "+idBouton+";");
+    }
+
     public void deleteBoutonQuery( int idBouton ){
 
         SQLiteDatabase db = this.getWritableDatabase();

@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -15,8 +16,10 @@ import model.DBHelper;
 public class ModifierIconeActivity extends Activity {
 
     private EditText modifNomIconeEditText;
-    private Spinner modifPageIconeSpinner;
-    private Button creerIconeButton;
+    private Button modifIconeButton;
+
+    private int idIcone;
+    private DBHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,21 +27,31 @@ public class ModifierIconeActivity extends Activity {
         setContentView(R.layout.activity_modifier_icone);
 
         Bundle b = getIntent().getExtras();
-        int idPage = b.getInt("idIcone");
+        idIcone = b.getInt("idIcone");
 
         modifNomIconeEditText = (EditText) findViewById(R.id.modifNomIconeEditText);
-        creerIconeButton = (Button) findViewById(R.id.creerIconeButton);
+        modifIconeButton = (Button) findViewById(R.id.modifIconeButton);
 
-        DBHelper db = new DBHelper(this);
+        db = new DBHelper(this);
 
-        Cursor unBouton = db.selectUnBoutonQuery(idPage);
+        Cursor unBouton = db.selectUnBoutonQuery(idIcone);
         unBouton.moveToFirst();
         modifNomIconeEditText.setHint( unBouton.getString(unBouton.getColumnIndex("NOMBOUTON")) );
 
-
+        modifIconeButton.setOnClickListener(modifIconeListener);
 
     }
 
+    private View.OnClickListener modifIconeListener = new View.OnClickListener() {
+        public void onClick(View v) {
+
+            if ( !modifNomIconeEditText.equals("") ) {
+                db.updateBoutonQuery(idIcone, modifNomIconeEditText.getText() + "");
+
+                finish();
+            }
+        }
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
