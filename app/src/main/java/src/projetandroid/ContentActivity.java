@@ -10,16 +10,25 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import model.DBHelper;
 
 
 public class ContentActivity extends Activity {
 
+    private static ArrayList<String> phrase;
+    TextView phraseView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setPhrase(new ArrayList<String>());
         setContentView(R.layout.activity_content);
+
+        phraseView = (TextView) findViewById(R.id.phraseView);
 
         GridLayout gl = (GridLayout) findViewById(R.id.gridLayoutContent);
 
@@ -83,7 +92,21 @@ public class ContentActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    private View.OnClickListener pageAccess = new View.OnClickListener()
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        String str = "";
+
+
+        for(String e: getPhrase())
+            str += e + " ";
+
+        if (str != "")
+            phraseView.setText(str);
+    }
+
+    public View.OnClickListener pageAccess = new View.OnClickListener()
     {
         public void onClick(View v)
         {
@@ -92,9 +115,20 @@ public class ContentActivity extends Activity {
             Button button = (Button) v;
 
             b.putInt("idPage", button.getId());
-            b.putString("nomPage", button.getText()+"");
+            b.putString("nomPage", button.getText() + "");
             newPage.putExtras(b);
+
             startActivity(newPage);
         }
     };
+
+    public static ArrayList <String> getPhrase()
+    {
+        return ContentActivity.phrase;
+    }
+
+    public static void setPhrase(ArrayList <String> l)
+    {
+        ContentActivity.phrase = l;
+    }
 }

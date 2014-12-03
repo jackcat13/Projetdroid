@@ -31,6 +31,8 @@ public class AjouterIconeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ajouter_icone);
 
+        setTitle("Ajout icône");
+
         db = new DBHelper(this);
 
         nomIconeEditText = (EditText) findViewById(R.id.ajouterIconeEditText);

@@ -26,6 +26,8 @@ public class ModifierIconeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modifier_icone);
 
+        setTitle("Modification icône");
+
         Bundle b = getIntent().getExtras();
         idIcone = b.getInt("idIcone");
 

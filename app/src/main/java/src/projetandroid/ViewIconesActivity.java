@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +26,8 @@ public class ViewIconesActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_icones);
+
+        setTitle("Gallerie icône");
 
         listId =new ArrayList<String>();
         db = new DBHelper(this);
@@ -69,5 +70,7 @@ public class ViewIconesActivity extends Activity {
             intentModifierIcone.putExtras(b);
             startActivity(intentModifierIcone);
         }
+
+        return super.onOptionsItemSelected(item);
     }
 }

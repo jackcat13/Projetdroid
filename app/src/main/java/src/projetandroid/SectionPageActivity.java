@@ -1,7 +1,6 @@
 package src.projetandroid;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,15 +8,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import model.DBHelper;
 
 public class SectionPageActivity extends Activity {
 
+    TextView phraseView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_section_page);
+
+        phraseView = (TextView) findViewById(R.id.phraseView);
 
         Bundle bun = getIntent().getExtras();
         int idPage = bun.getInt("idPage");
@@ -52,16 +58,11 @@ public class SectionPageActivity extends Activity {
     {
         public void onClick(View v)
         {
-            Intent intentNewPage = new Intent(SectionPageActivity.this, SectionPageActivity.class);
-            Bundle b = new Bundle();
-            Button bu = (Button)v;
-            b.putInt("idPage", bu.getId());
-            b.putString("nomPage", bu.getText().toString());
-            intentNewPage.putExtras(b);
-            startActivity(intentNewPage);
+            Button button = (Button) v;
 
+            ContentActivity.getPhrase().add((String) button.getText());
 
-            
+            finish();
         }
     };
 
@@ -85,5 +86,19 @@ public class SectionPageActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        String str = "";
+
+
+        for(String e: ContentActivity.getPhrase())
+            str += e + " ";
+
+        if (str != "")
+            phraseView.setText(str);
     }
 }
