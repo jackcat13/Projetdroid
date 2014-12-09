@@ -1,8 +1,10 @@
 package src.projetandroid;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,8 +13,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.TextView;
+import android.speech.tts.*;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import model.DBHelper;
 
@@ -20,7 +24,8 @@ import model.DBHelper;
 public class ContentActivity extends Activity {
 
     private static ArrayList<Button> phrase;
-    TextView phraseView;
+    static TextView phraseView;
+    public static TextToSpeech mTts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,13 @@ public class ContentActivity extends Activity {
         setContentView(R.layout.activity_content);
 
         phraseView = (TextView) findViewById(R.id.phraseView);
+        phraseView.setOnClickListener(speak);
+
+        mTts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener()
+        {
+            @Override
+            public void onInit(int status) {}
+        });
 
         GridLayout gl = (GridLayout) findViewById(R.id.gridLayoutContent);
 
@@ -55,6 +67,14 @@ public class ContentActivity extends Activity {
             buttons.moveToNext();
         }
         buttons.close();
+
+        Button bResetPhrase = (Button) findViewById(R.id.resetPhraseButton);
+        bResetPhrase.setOnClickListener(resetPhrase);
+
+        Button bDelLastWord = (Button) findViewById(R.id.delLastWordButton);
+        bDelLastWord.setOnClickListener(delLastWord);
+
+
 
         /*Cursor pages = db.selectPageQuery();
         pages.moveToFirst();
@@ -96,14 +116,8 @@ public class ContentActivity extends Activity {
     protected void onResume()
     {
         super.onResume();
-        String str = "";
 
-
-        for(Button e: getPhrase())
-            str += e.getText() + " ";
-
-        if (str != "")
-            phraseView.setText(str);
+        setTextPhrase();
     }
 
     public View.OnClickListener pageAccess = new View.OnClickListener()
@@ -122,6 +136,46 @@ public class ContentActivity extends Activity {
         }
     };
 
+    static private View.OnClickListener speak = new View.OnClickListener()
+    {
+        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+        public void onClick(View v)
+        {
+            String phrase = "";
+
+            for(Button e: getPhrase())
+                phrase += e.getText() + " ";
+
+            if (mTts.isSpeaking())
+                mTts.stop();
+
+            mTts.speak(phrase, TextToSpeech.QUEUE_ADD, null);
+        }
+    };
+
+    static private View.OnClickListener resetPhrase = new View.OnClickListener()
+    {
+        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+        public void onClick(View v)
+        {
+            setPhrase(new ArrayList<Button>());
+            phraseView.setText("");
+        }
+    };
+
+    private View.OnClickListener delLastWord = new View.OnClickListener()
+    {
+        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+        public void onClick(View v)
+        {
+            if (phrase.size() > 0)
+            {
+                phrase.remove(phrase.size() - 1);
+                setTextPhrase();
+            }
+        }
+    };
+
     public static ArrayList <Button> getPhrase()
     {
         return ContentActivity.phrase;
@@ -130,5 +184,45 @@ public class ContentActivity extends Activity {
     public static void setPhrase(ArrayList <Button> l)
     {
         ContentActivity.phrase = l;
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (requestCode == 0x01)
+        {
+            if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS)
+            {
+                // Succès, au moins un moteur de TTS à été trouvé, on l'instancie
+                mTts = new TextToSpeech(this, (TextToSpeech.OnInitListener) this);
+            }
+            else
+            {
+                // Echec, aucun moteur n'a été trouvé, on propose à l'utilisateur d'en installer un depuis le Market
+                Intent installIntent = new Intent();
+                installIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+                startActivity(installIntent);
+            }
+        }
+
+        if (mTts.isLanguageAvailable(Locale.FRANCE) == TextToSpeech.LANG_COUNTRY_AVAILABLE)
+        {
+            mTts.setLanguage(Locale.FRANCE);
+        }
+
+        mTts.setSpeechRate(1); // 1 est la valeur par défaut. Une valeur inférieure rendra l'énonciation plus lente, une valeur supérieure la rendra plus rapide.
+        mTts.setPitch(1); // 1 est la valeur par défaut. Une valeur inférieure rendra l'énonciation plus grave, une valeur supérieure la rendra plus aigue.
+
+    }
+
+    private void setTextPhrase()
+    {
+        String str = "";
+
+
+        for(Button e: getPhrase())
+            str += e.getText() + " ";
+
+        if (str != "")
+            phraseView.setText(str);
     }
 }

@@ -1,8 +1,12 @@
 package src.projetandroid;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,12 +15,13 @@ import android.widget.GridLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import model.DBHelper;
 
 public class SectionPageActivity extends Activity {
 
-    TextView phraseView;
+    static TextView phraseView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +29,7 @@ public class SectionPageActivity extends Activity {
         setContentView(R.layout.activity_section_page);
 
         phraseView = (TextView) findViewById(R.id.phraseView);
+        phraseView.setOnClickListener(speak);
 
         Bundle bun = getIntent().getExtras();
         int idPage = bun.getInt("idPage");
@@ -52,6 +58,12 @@ public class SectionPageActivity extends Activity {
             buttons.moveToNext();
         }
         buttons.close();
+
+        Button bResetPhrase = (Button) findViewById(R.id.resetPhraseButton);
+        bResetPhrase.setOnClickListener(resetPhrase);
+
+        Button bDelLastWord = (Button) findViewById(R.id.delLastWordButton);
+        bDelLastWord.setOnClickListener(delLastWord);
     }
 
     private View.OnClickListener saveWord = new View.OnClickListener()
@@ -63,6 +75,47 @@ public class SectionPageActivity extends Activity {
             ContentActivity.getPhrase().add(button);
 
             finish();
+        }
+    };
+
+    static private View.OnClickListener speak = new View.OnClickListener()
+    {
+        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+        public void onClick(View v)
+        {
+            String phrase = "";
+
+            for(Button e: ContentActivity.getPhrase())
+                phrase += e.getText() + " ";
+
+            if (ContentActivity.mTts.isSpeaking())
+                ContentActivity.mTts.stop();
+
+            ContentActivity.mTts.speak(phrase, TextToSpeech.QUEUE_ADD, null);
+
+        }
+    };
+
+    static private View.OnClickListener resetPhrase = new View.OnClickListener()
+    {
+        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+        public void onClick(View v)
+        {
+            ContentActivity.setPhrase(new ArrayList<Button>());
+            phraseView.setText("");
+        }
+    };
+
+    private View.OnClickListener delLastWord = new View.OnClickListener()
+    {
+        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+        public void onClick(View v)
+        {
+            if (ContentActivity.getPhrase().size() > 0)
+            {
+                ContentActivity.getPhrase().remove(ContentActivity.getPhrase().size() - 1);
+                setTextPhrase();
+            }
         }
     };
 
@@ -92,6 +145,11 @@ public class SectionPageActivity extends Activity {
     protected void onResume()
     {
         super.onResume();
+        setTextPhrase();
+    }
+
+    public void setTextPhrase()
+    {
         String str = "";
 
 
