@@ -59,11 +59,18 @@ public class SectionPageActivity extends Activity {
         }
         buttons.close();
 
-        Button bResetPhrase = (Button) findViewById(R.id.resetPhraseButton);
-        bResetPhrase.setOnClickListener(resetPhrase);
-
-        Button bDelLastWord = (Button) findViewById(R.id.delLastWordButton);
+        Button bDelLastWord = new Button(this);
+        bDelLastWord.setId(R.id.delLastWordButton);
+        bDelLastWord.setText("Supprimer le dernier mot");
         bDelLastWord.setOnClickListener(delLastWord);
+        gl.addView(bDelLastWord);
+
+        Button bResetPhrase = new Button(this);
+        bResetPhrase.setId(R.id.resetPhraseButton);
+        bResetPhrase.setText("Rénitialiser la phrase");
+        bResetPhrase.setOnClickListener(resetPhrase);
+        gl.addView(bResetPhrase);
+
     }
 
     private View.OnClickListener saveWord = new View.OnClickListener()

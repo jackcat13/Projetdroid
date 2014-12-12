@@ -30,23 +30,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp">
          </GridLayout>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rénitialiser la phrase"
-            android:id="@+id/resetPhraseButton"
-            android:layout_gravity="center_horizontal"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Supprimer le dernier mot"
-            android:id="@+id/delLastWordButton"
-            android:layout_gravity="center_horizontal" />
-
     </RelativeLayout>
 
 </ScrollView>

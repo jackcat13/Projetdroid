@@ -9,9 +9,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.speech.tts.*;
 
@@ -27,6 +28,7 @@ public class ContentActivity extends Activity {
     static TextView phraseView;
     public static TextToSpeech mTts;
 
+    @TargetApi(Build.VERSION_CODES.DONUT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,11 +70,25 @@ public class ContentActivity extends Activity {
         }
         buttons.close();
 
-        Button bResetPhrase = (Button) findViewById(R.id.resetPhraseButton);
-        bResetPhrase.setOnClickListener(resetPhrase);
-
-        Button bDelLastWord = (Button) findViewById(R.id.delLastWordButton);
+        Button bDelLastWord = new Button(this);
+        bDelLastWord.setId(R.id.delLastWordButton);
+        bDelLastWord.setText("Supprimer le dernier mot");
         bDelLastWord.setOnClickListener(delLastWord);
+        gl.addView(bDelLastWord);
+
+        Button bResetPhrase = new Button(this);
+        bResetPhrase.setId(R.id.resetPhraseButton);
+        bResetPhrase.setText("Rénitialiser la phrase");
+        bResetPhrase.setOnClickListener(resetPhrase);
+        gl.addView(bResetPhrase);
+
+        if (mTts.isLanguageAvailable(Locale.FRANCE) == TextToSpeech.LANG_COUNTRY_AVAILABLE)
+        {
+            mTts.setLanguage(Locale.FRANCE);
+        }
+
+        mTts.setSpeechRate((float) 0.80); // 1 est la valeur par défaut. Une valeur inférieure rendra l'énonciation plus lente, une valeur supérieure la rendra plus rapide.
+        mTts.setPitch(1); // 1 est la valeur par défaut. Une valeur inférieure rendra l'énonciation plus grave, une valeur supérieure la rendra plus aigue.
 
 
 
@@ -203,14 +219,6 @@ public class ContentActivity extends Activity {
                 startActivity(installIntent);
             }
         }
-
-        if (mTts.isLanguageAvailable(Locale.FRANCE) == TextToSpeech.LANG_COUNTRY_AVAILABLE)
-        {
-            mTts.setLanguage(Locale.FRANCE);
-        }
-
-        mTts.setSpeechRate(1); // 1 est la valeur par défaut. Une valeur inférieure rendra l'énonciation plus lente, une valeur supérieure la rendra plus rapide.
-        mTts.setPitch(1); // 1 est la valeur par défaut. Une valeur inférieure rendra l'énonciation plus grave, une valeur supérieure la rendra plus aigue.
 
     }
 
