@@ -1,6 +1,7 @@
 package src.projetandroid;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,6 +18,7 @@ public class ModifierIconeActivity extends Activity {
 
     private EditText modifNomIconeEditText;
     private Button modifIconeButton;
+    private Button supprimerIconeButton;
 
     private int idIcone;
     private DBHelper db;
@@ -33,6 +35,7 @@ public class ModifierIconeActivity extends Activity {
 
         modifNomIconeEditText = (EditText) findViewById(R.id.modifNomIconeEditText);
         modifIconeButton = (Button) findViewById(R.id.modifIconeButton);
+        supprimerIconeButton = (Button) findViewById(R.id.supprimerIconeButton);
 
         db = new DBHelper(this);
 
@@ -41,7 +44,7 @@ public class ModifierIconeActivity extends Activity {
         modifNomIconeEditText.setHint( unBouton.getString(unBouton.getColumnIndex("NOMBOUTON")) );
 
         modifIconeButton.setOnClickListener(modifIconeListener);
-
+        supprimerIconeButton.setOnClickListener(supprimerIconeListener);
     }
 
     private View.OnClickListener modifIconeListener = new View.OnClickListener() {
@@ -49,9 +52,20 @@ public class ModifierIconeActivity extends Activity {
 
             if ( !modifNomIconeEditText.equals("") ) {
                 db.updateBoutonQuery(idIcone, modifNomIconeEditText.getText() + "");
-
+                Intent intentView = new Intent(ModifierIconeActivity.this, ViewIconesActivity.class);
+                startActivity(intentView);
                 finish();
             }
+        }
+    };
+
+    private View.OnClickListener supprimerIconeListener = new View.OnClickListener() {
+        public void onClick(View v) {
+
+            db.deleteBoutonQuery(idIcone);
+            Intent intentView = new Intent(ModifierIconeActivity.this, ViewIconesActivity.class);
+            startActivity(intentView);
+            finish();
         }
     };
 
@@ -75,5 +89,11 @@ public class ModifierIconeActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onBackPressed(){
+        Intent intentView = new Intent(this, ViewIconesActivity.class);
+        startActivity(intentView);
+        finish();
     }
 }

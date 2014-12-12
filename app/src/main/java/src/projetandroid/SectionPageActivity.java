@@ -23,6 +23,9 @@ public class SectionPageActivity extends Activity {
 
     static TextView phraseView;
 
+    private Button bDelLastWord;
+    private Button bResetPhrase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,17 +62,11 @@ public class SectionPageActivity extends Activity {
         }
         buttons.close();
 
-        Button bDelLastWord = new Button(this);
-        bDelLastWord.setId(R.id.delLastWordButton);
-        bDelLastWord.setText("Supprimer le dernier mot");
+        bDelLastWord = (Button) findViewById(R.id.delLastWordButton);
         bDelLastWord.setOnClickListener(delLastWord);
-        gl.addView(bDelLastWord);
 
-        Button bResetPhrase = new Button(this);
-        bResetPhrase.setId(R.id.resetPhraseButton);
-        bResetPhrase.setText("Rénitialiser la phrase");
+        bResetPhrase = (Button) findViewById(R.id.resetPhraseButton);
         bResetPhrase.setOnClickListener(resetPhrase);
-        gl.addView(bResetPhrase);
 
     }
 
@@ -105,7 +102,6 @@ public class SectionPageActivity extends Activity {
 
     static private View.OnClickListener resetPhrase = new View.OnClickListener()
     {
-        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
         public void onClick(View v)
         {
             ContentActivity.setPhrase(new ArrayList<Button>());
@@ -115,7 +111,6 @@ public class SectionPageActivity extends Activity {
 
     private View.OnClickListener delLastWord = new View.OnClickListener()
     {
-        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
         public void onClick(View v)
         {
             if (ContentActivity.getPhrase().size() > 0)
@@ -163,7 +158,6 @@ public class SectionPageActivity extends Activity {
         for(Button e: ContentActivity.getPhrase())
             str += e.getText() + " ";
 
-        if (str != "")
-            phraseView.setText(str);
+        phraseView.setText(str);
     }
 }

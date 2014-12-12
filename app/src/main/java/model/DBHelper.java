@@ -73,7 +73,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void updateBoutonQuery( int idBouton, String nomBouton ){
 
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("UPDATE INTO BOUTON SET NOMBOUTON = "+nomBouton+" WHERE IDBOUTON = "+idBouton+";");
+        db.execSQL("UPDATE BOUTON SET NOMBOUTON = '"+nomBouton+"' WHERE IDBOUTON = "+idBouton+";");
     }
 
     public void deleteBoutonQuery( int idBouton ){

@@ -70,6 +70,7 @@ public class ViewIconesActivity extends Activity {
             Intent intentModifierIcone = new Intent(ViewIconesActivity.this, ModifierIconeActivity.class);
             intentModifierIcone.putExtras(b);
             startActivity(intentModifierIcone);
+            finish();
         }
 
     };

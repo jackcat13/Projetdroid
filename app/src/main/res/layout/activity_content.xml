@@ -17,7 +17,6 @@
         android:id="@+id/rlayout">
 
         <TextView
-            android:text="Phrase"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -34,6 +33,26 @@
             android:layout_marginTop="50dp">
 
         </GridLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/gridLayoutContent"
+            android:layout_centerHorizontal="true">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Supprimer dernier mot"
+                android:id="@+id/delLastWordButton" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reset la phrase"
+                android:id="@+id/resetPhraseButton" />
+        </LinearLayout>
     </RelativeLayout>
 
 </ScrollView>

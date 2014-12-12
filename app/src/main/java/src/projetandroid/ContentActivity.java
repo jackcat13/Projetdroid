@@ -35,6 +35,9 @@ public class ContentActivity extends Activity {
     static TextView phraseView;
     public static TextToSpeech mTts;
 
+    private Button bDelLastWord;
+    private Button bResetPhrase;
+
     @TargetApi(Build.VERSION_CODES.DONUT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,19 +81,14 @@ public class ContentActivity extends Activity {
         buttons.close();
         gl.setOnDragListener(dragListener);
 
-        Button bDelLastWord = new Button(this);
-        bDelLastWord.setId(R.id.delLastWordButton);
-        bDelLastWord.setText("Supprimer le dernier mot");
+        bDelLastWord = (Button) findViewById(R.id.delLastWordButton);
         bDelLastWord.setOnClickListener(delLastWord);
-        gl.addView(bDelLastWord);
 
-        Button bResetPhrase = new Button(this);
-        bResetPhrase.setId(R.id.resetPhraseButton);
-        bResetPhrase.setText("Rénitialiser la phrase");
+        bResetPhrase = (Button) findViewById(R.id.resetPhraseButton);
         bResetPhrase.setOnClickListener(resetPhrase);
+
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.rlayout);
         rl.setOnDragListener(dragListenerRelative);
-        gl.addView(bResetPhrase);
 
         if (mTts.isLanguageAvailable(Locale.FRANCE) == TextToSpeech.LANG_COUNTRY_AVAILABLE)
         {
@@ -257,7 +255,6 @@ public class ContentActivity extends Activity {
 
     static private View.OnClickListener resetPhrase = new View.OnClickListener()
     {
-        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
         public void onClick(View v)
         {
             setPhrase(new ArrayList<Button>());
@@ -324,7 +321,6 @@ public class ContentActivity extends Activity {
         for(Button e: getPhrase())
             str += e.getText() + " ";
 
-        if (str != "")
-            phraseView.setText(str);
+        phraseView.setText(str);
     }
 }
