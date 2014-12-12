@@ -2,16 +2,23 @@ package src.projetandroid;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.DragEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.speech.tts.*;
@@ -63,12 +70,13 @@ public class ContentActivity extends Activity {
             b.setText( nomBouton );
             b.setPadding(20,20,20,20);
             b.setOnClickListener(pageAccess);
-
+            b.setOnLongClickListener(longClickListener);
             gl.addView(b);
 
             buttons.moveToNext();
         }
         buttons.close();
+        gl.setOnDragListener(dragListener);
 
         Button bDelLastWord = new Button(this);
         bDelLastWord.setId(R.id.delLastWordButton);
@@ -79,7 +87,8 @@ public class ContentActivity extends Activity {
         Button bResetPhrase = new Button(this);
         bResetPhrase.setId(R.id.resetPhraseButton);
         bResetPhrase.setText("Rénitialiser la phrase");
-        bResetPhrase.setOnClickListener(resetPhrase);
+        RelativeLayout rl = (RelativeLayout) findViewById(R.id.rlayout);
+        rl.setOnDragListener(dragListenerRelative);
         gl.addView(bResetPhrase);
 
         if (mTts.isLanguageAvailable(Locale.FRANCE) == TextToSpeech.LANG_COUNTRY_AVAILABLE)
@@ -135,6 +144,82 @@ public class ContentActivity extends Activity {
 
         setTextPhrase();
     }
+
+    public View.OnLongClickListener longClickListener = new View.OnLongClickListener()
+    {
+
+        public boolean onLongClick(View view) {
+            ClipData data = ClipData.newPlainText("", "");
+            View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
+            view.startDrag(data, shadowBuilder, view, 0);
+            view.setVisibility(View.INVISIBLE);
+            return true;
+        }
+    };
+
+    public View.OnDragListener dragListener = new View.OnDragListener()
+    {
+
+
+        @Override
+        public boolean onDrag(View v, DragEvent event) {
+            int action = event.getAction();
+            switch (event.getAction()) {
+                case DragEvent.ACTION_DRAG_STARTED:
+                    // do nothing
+                    break;
+                case DragEvent.ACTION_DRAG_ENTERED:
+                    break;
+                case DragEvent.ACTION_DRAG_EXITED:
+                    break;
+                case DragEvent.ACTION_DROP:
+                    // Dropped, reassign View to ViewGroup
+                    View view = (View) event.getLocalState();
+                    ViewGroup owner = (ViewGroup) view.getParent();
+                    owner.removeView(view);
+                    GridLayout container = (GridLayout) v;
+                    container.addView(view);
+                    view.setVisibility(View.VISIBLE);
+                    break;
+                case DragEvent.ACTION_DRAG_ENDED:
+                default:
+                    break;
+            }
+            return true;
+        }
+    };
+
+    public View.OnDragListener dragListenerRelative = new View.OnDragListener()
+    {
+
+
+        @Override
+        public boolean onDrag(View v, DragEvent event) {
+            int action = event.getAction();
+            switch (event.getAction()) {
+                case DragEvent.ACTION_DRAG_STARTED:
+                    // do nothing
+                    break;
+                case DragEvent.ACTION_DRAG_ENTERED:
+                    break;
+                case DragEvent.ACTION_DRAG_EXITED:
+                    break;
+                case DragEvent.ACTION_DROP:
+                    // Dropped, reassign View to ViewGroup
+                    View view = (View) event.getLocalState();
+                    ViewGroup owner = (ViewGroup) view.getParent();
+                    owner.removeView(view);
+                    GridLayout gl = (GridLayout) findViewById(R.id.gridLayoutContent);
+                    gl.addView(view);
+                    view.setVisibility(View.VISIBLE);
+                    break;
+                case DragEvent.ACTION_DRAG_ENDED:
+                default:
+                    break;
+            }
+            return true;
+        }
+    };
 
     public View.OnClickListener pageAccess = new View.OnClickListener()
     {
@@ -219,6 +304,14 @@ public class ContentActivity extends Activity {
                 startActivity(installIntent);
             }
         }
+
+        if (mTts.isLanguageAvailable(Locale.FRANCE) == TextToSpeech.LANG_COUNTRY_AVAILABLE)
+        {
+            mTts.setLanguage(Locale.FRANCE);
+        }
+
+        mTts.setSpeechRate(1); // 1 est la valeur par défaut. Une valeur inférieure rendra l'énonciation plus lente, une valeur supérieure la rendra plus rapide.
+        mTts.setPitch(1); // 1 est la valeur par défaut. Une valeur inférieure rendra l'énonciation plus grave, une valeur supérieure la rendra plus aigue.
 
     }
 
