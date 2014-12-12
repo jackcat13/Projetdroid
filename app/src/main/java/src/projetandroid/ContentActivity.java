@@ -4,11 +4,16 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.DragEvent;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -23,6 +28,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.speech.tts.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -44,6 +52,27 @@ public class ContentActivity extends Activity {
         super.onCreate(savedInstanceState);
         this.setPhrase(new ArrayList<Button>());
         setContentView(R.layout.activity_content);
+
+        /*String extStorageDirectory = Environment.getExternalStorageDirectory() + "/projetdroid";
+        File f = new File(extStorageDirectory);
+        if (f.isDirectory()){
+            f.mkdir();
+            File page = new File(extStorageDirectory + "/page");
+            page.mkdir();
+            Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.Urgent);
+            File file = new File(page, "/Urgent.png");
+            FileOutputStream outStream = null;
+            try {
+                outStream = new FileOutputStream(file);
+                bm.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+                outStream.flush();
+                outStream.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (Exception ex){
+                ex.printStackTrace();
+            }
+        }*/
 
         phraseView = (TextView) findViewById(R.id.phraseView);
         phraseView.setOnClickListener(speak);
@@ -73,7 +102,10 @@ public class ContentActivity extends Activity {
             String nomBouton = buttons.getString(buttons.getColumnIndex("NOMPAGE"));
             b.setId( Integer.valueOf(buttons.getString(buttons.getColumnIndex("IDPAGE"))) );
             b.setText(nomBouton);
-            b.setPadding(20, 20, 20, 20);
+            b.setPadding(0, 50, 0, 0);
+            int idImage = getResources().getIdentifier(nomBouton.toLowerCase(), "drawable", this.getPackageName());;
+            b.setBackgroundResource(idImage);
+            b.setGravity(Gravity.BOTTOM);
             b.setOnClickListener(pageAccess);
             b.setOnLongClickListener(longClickListener);
             l.addView(b);
