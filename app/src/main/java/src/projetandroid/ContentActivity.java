@@ -87,6 +87,7 @@ public class ContentActivity extends Activity {
         Button bResetPhrase = new Button(this);
         bResetPhrase.setId(R.id.resetPhraseButton);
         bResetPhrase.setText("Rénitialiser la phrase");
+        bResetPhrase.setOnClickListener(resetPhrase);
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.rlayout);
         rl.setOnDragListener(dragListenerRelative);
         gl.addView(bResetPhrase);
