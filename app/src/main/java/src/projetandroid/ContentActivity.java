@@ -68,27 +68,27 @@ public class ContentActivity extends Activity {
             System.out.println(buttons.getString(buttons.getColumnIndex("NOMBOUTON")));*/
 
             Button b = new Button(this);
+            LinearLayout l = new LinearLayout(this);
+
             String nomBouton = buttons.getString(buttons.getColumnIndex("NOMPAGE"));
             b.setId( Integer.valueOf(buttons.getString(buttons.getColumnIndex("IDPAGE"))) );
-            b.setText( nomBouton );
-            b.setPadding(20,20,20,20);
+            b.setText(nomBouton);
+            b.setPadding(20, 20, 20, 20);
             b.setOnClickListener(pageAccess);
             b.setOnLongClickListener(longClickListener);
-            gl.addView(b);
+            l.addView(b);
+            l.setOnDragListener(dragListener);
+            gl.addView(l);
 
             buttons.moveToNext();
         }
         buttons.close();
-        gl.setOnDragListener(dragListener);
-
         bDelLastWord = (Button) findViewById(R.id.delLastWordButton);
         bDelLastWord.setOnClickListener(delLastWord);
 
         bResetPhrase = (Button) findViewById(R.id.resetPhraseButton);
         bResetPhrase.setOnClickListener(resetPhrase);
 
-        RelativeLayout rl = (RelativeLayout) findViewById(R.id.rlayout);
-        rl.setOnDragListener(dragListenerRelative);
 
         if (mTts.isLanguageAvailable(Locale.FRANCE) == TextToSpeech.LANG_COUNTRY_AVAILABLE)
         {
@@ -158,9 +158,6 @@ public class ContentActivity extends Activity {
 
     public View.OnDragListener dragListener = new View.OnDragListener()
     {
-
-
-        @Override
         public boolean onDrag(View v, DragEvent event) {
             int action = event.getAction();
             switch (event.getAction()) {
@@ -173,14 +170,28 @@ public class ContentActivity extends Activity {
                     break;
                 case DragEvent.ACTION_DROP:
                     // Dropped, reassign View to ViewGroup
-                    View view = (View) event.getLocalState();
-                    ViewGroup owner = (ViewGroup) view.getParent();
-                    owner.removeView(view);
-                    GridLayout container = (GridLayout) v;
-                    container.addView(view);
-                    view.setVisibility(View.VISIBLE);
+                    if (v instanceof LinearLayout) {
+
+                        View viewDragged = (View) event.getLocalState();
+                        ViewGroup owner = (ViewGroup) viewDragged.getParent();
+                        ViewGroup receiver = (ViewGroup) v;
+                        View viewReplaced = (View) ((ViewGroup) v).getChildAt(0);
+
+                        owner.removeView(viewDragged);
+                        receiver.removeView(viewReplaced);
+
+                        owner.addView(viewReplaced);
+                        receiver.addView(viewDragged);
+
+                        viewDragged.setVisibility(View.VISIBLE);
+                        viewReplaced.setVisibility(View.VISIBLE);
+                    }
                     break;
                 case DragEvent.ACTION_DRAG_ENDED:
+                    View viewDragged = (View) event.getLocalState();
+                    viewDragged.setVisibility(View.VISIBLE);
+
+                    break;
                 default:
                     break;
             }
@@ -188,39 +199,7 @@ public class ContentActivity extends Activity {
         }
     };
 
-    public View.OnDragListener dragListenerRelative = new View.OnDragListener()
-    {
-
-
-        @Override
-        public boolean onDrag(View v, DragEvent event) {
-            int action = event.getAction();
-            switch (event.getAction()) {
-                case DragEvent.ACTION_DRAG_STARTED:
-                    // do nothing
-                    break;
-                case DragEvent.ACTION_DRAG_ENTERED:
-                    break;
-                case DragEvent.ACTION_DRAG_EXITED:
-                    break;
-                case DragEvent.ACTION_DROP:
-                    // Dropped, reassign View to ViewGroup
-                    View view = (View) event.getLocalState();
-                    ViewGroup owner = (ViewGroup) view.getParent();
-                    owner.removeView(view);
-                    GridLayout gl = (GridLayout) findViewById(R.id.gridLayoutContent);
-                    gl.addView(view);
-                    view.setVisibility(View.VISIBLE);
-                    break;
-                case DragEvent.ACTION_DRAG_ENDED:
-                default:
-                    break;
-            }
-            return true;
-        }
-    };
-
-    public View.OnClickListener pageAccess = new View.OnClickListener()
+      public View.OnClickListener pageAccess = new View.OnClickListener()
     {
         public void onClick(View v)
         {
